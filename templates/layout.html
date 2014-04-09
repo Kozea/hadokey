@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <title>HOQUET</title>
+
+        <link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
+        <script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/       svg.jquery.js"></script>
+  <script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/pygal-tooltips.js"></script>
+        </head>
+
+<body>
+    <div>
+        <!--{% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}-->
+
+    {% block body %}
+
+    {% endblock %}
+    </div>
+</body>
+</html>

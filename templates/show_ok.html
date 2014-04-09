@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<!--Mois précédent-->
+{#<a href="{{ url_for('month_passed') }}">Mois précédent</a>#}
+
+<!--Calendrier -->
+<table>
+    <thead>
+        <th>{{ month | capitalize }}</th>
+    </thead>
+    <thead>
+        {% for dayweek in daysweek %}
+        <th>{{ dayweek | capitalize }}</th>
+        {% endfor %}   
+    </thead>
+
+<tbody>
+    <tr>
+        {% for day in days %}
+            <td><a href="{{ url_for('show_ok', date='%s%s' % (link, day.day)) }}">{{ day.day }}</a></td>
+            {% if not loop.index%7 and not loop.last %}
+                </tr> <tr>
+            {% endif %}
+        {% endfor %}
+   </tr>
+</tbody>
+</table>
+
+<!--Mois suivant-->
+{#<a href="{{ url_for('month_futur') }}">Mois suivant</a>#}
+
+{% if frenchDate %}
+    <p>{{ frenchDate }}</p>
+<ul>
+{% for ok in ok_list %}
+    <li>{{ ok }}</li>
+{% else %}
+    <li><em>Annabelle n'a pas encore eu de hoquet. Ca va venir... </em></li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+{% endblock %}
