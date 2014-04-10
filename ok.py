@@ -54,6 +54,8 @@ def close_db(error):
 def insert_ok():
     db = get_db()
     nbOk = None if db.execute('select count(*) from ok').fetchone()[0] == 0 else db.execute('select count(*) from ok').fetchone()[0]
+    message = "Cette date n'est pas encore passée. On ne sait toujours pas si Annabelle aura le hoquet à ce moment là..."
+    
     if request.method =='POST':
         now = datetime.now()
         if request.form['date']:
@@ -64,7 +66,10 @@ def insert_ok():
             time = [int(i) for i in request.form['time'].split(':')]
         else:
             time = [now.hour, now.minute]
+
         timestamp = datetime(*(date + time)).timestamp()
+        if timestamp >= now.timestamp():
+                return render_template('insert_ok.html', nbOk=nbOk, message=message)            
         cur = db.execute('insert into ok (moment) values(?)', [timestamp])
         db.commit()
         flash('Vous avez inséré un nouveau \'hoquet\'')
@@ -99,35 +104,33 @@ def show_ok(date=None):
 
 @app.route('/graphics', methods=['GET', 'POST'])
 def show_graphics():
-    graph = None if request.method == 'GET' else request.form['graphic']
-    type = hour if request.form['display'] == hour else day
-    return render_template('show_graphics.html', graph=graph, type=type)
+    if request.method == 'POST':
+        graph = request.form['graphic']
+        type = 'hour' if request.form['display'] == 'hour' else 'day'
+        year, month, day = [int(i) for i in request.form['month'].split('-')]
+        return render_template('show_graphics.html', graph=graph, type=type, month=month, year=year)
+    return render_template('show_graphics.html')
 
-@app.route('/graph/<graph>/<type>')
-def graph(graph, type):
+@app.route('/graph/<graph>/<type>/<int:year>/<int:month>')
+def graph(graph, type, year, month):
     db = get_db()
     now = datetime.now()
     timestamp = now.timestamp()
-    firstday = datetime(now.year, now.month, 1).timestamp()
-    firstminute = datetime(now.year, now.month, now.day, now.hour, 0).timestamp()
-    firsthour = datetime(now.year, now.month, now.day, 9).timestamp()
-    lasthour = datetime(now.year, now.month, now.day, 19).timestamp()
-    cal = calendar.Calendar()
-    cal = calendar.monthrange(now.year, now.month)
-    lastday = datetime(now.year, now.month, cal[1], 23, 59, 59).timestamp()
+    firstday = datetime(year, month, 1).timestamp()
+    cal = calendar.monthrange(year, month)
+    lastday = datetime(year, month, cal[1], 23, 59, 59).timestamp()
     
     if graph in ["ligne", "histogramme"]:
         line_chart = Line() if graph == "ligne" else Bar()
         if type == 'hour':
-            line_chart.title = 'Nombre de hoquets maximum par heure ce mois'
-            
+            line_chart.title = 'Nombre de hoquets maximum par heure en %s' % calendar.month_name[month]   
             requete = db.execute('select strftime(\'%H\', datetime(moment, \'unixepoch\', \'localtime\')) as hour, count(*) from ok where moment between (?) and (?) group by hour', [firstday, lastday])
             hoquet = dict(requete)
             line_chart.x_labels = map(str, range(9, 19))
             line_chart.add('Annabelle', hoquet)
         else:
             hoquet = []
-            line_chart.title = 'Nombre de hoquets par jour'
+            line_chart.title = "Nombre de hoquets par jour en %s" % calendar.month_name[month]
             for day in range (int(firstday), int(timestamp), 86400):
                 requete = db.execute('select count(*) from ok where moment >= (?) and moment <= (?)', [day, day+86400]).fetchone()[0]
                 hoquet.append(requete)
