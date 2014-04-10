@@ -2,12 +2,14 @@
 
 {% block body %}
 <!--Mois précédent-->
-{#<a href="{{ url_for('month_passed') }}">Mois précédent</a>#}
+{% set previous_month =  month - 1 or 12 %}
+{% set previous_year = year-1 if previous_month == 12 else year %}
+    <a href="{{ url_for('show_ok', year=previous_year, month=previous_month) }}">Mois précédent</a>
 
 <!--Calendrier -->
 <table>
     <thead>
-        <th>{{ month | capitalize }}</th>
+        <th>{{ title | capitalize }}</th>
     </thead>
     <thead>
         {% for dayweek in daysweek %}
@@ -28,7 +30,9 @@
 </table>
 
 <!--Mois suivant-->
-{#<a href="{{ url_for('month_futur') }}">Mois suivant</a>#}
+{% set next_month =  1 if month == 12 else month+1 %}
+{% set next_year = year+1 if next_month == 1 else year %}
+<a href="{{ url_for('show_ok', year=next_year, month=next_month)  }}">Mois suivant</a>
 
 {% if frenchDate %}
     <p>{{ frenchDate }}</p>
