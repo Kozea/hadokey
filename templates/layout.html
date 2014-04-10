@@ -9,6 +9,11 @@
         </head>
 
 <body>
+    <head>
+    <a href="{{ url_for('insert_ok') }}">Insérer</a>
+    <a href="{{ url_for('show_ok') }}">Voir les hoquets</a>
+    <a href="{{ url_for('show_graphics') }}">Graphiques</a>
+    </head>
     <div>
         <!--{% for message in get_flashed_messages() %}
             <div class=flash>{{ message }}</div>
