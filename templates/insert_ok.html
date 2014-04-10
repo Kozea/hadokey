@@ -8,6 +8,10 @@
         <input id='time' name='time' type='time'/>
         <input type='submit' value=HOQUET>
     </form>
+
+{% if message %}
+    <p><b>{{ message }}</b></p>
+{% endif %}
        
 {% if nbOk %}
     <p>Annabelle a eu {{ nbOk }} fois le hoquet!</p>
