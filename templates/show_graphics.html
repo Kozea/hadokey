@@ -9,14 +9,14 @@
         <option value="histogramme">Histogramme</option>
     </select><br>
     <label>Mois</label>
-    <input type='date' id='month' name='month'/><br>
+    <input type='date' id='month' name='month' size=1 /><br>
     <label for='day'>Jours</label><input type='radio' name='display' id='day' value='day'/>
     <label for='hour'>Heures</label><input type='radio' name='display' id='hour' value='hour'/><br>
     <input type='submit' value='HOQUET' />
 </form>
 
 {% if graph %}
-    <img src="{{ url_for('graph', graph=graph, type=type) }}" style="width:800px"/>
+    <img src="{{ url_for('graph', graph=graph, type=type, year=year, month=month) }}" style="width:800px"/>
 {% endif %}
 
 
