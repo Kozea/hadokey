@@ -77,21 +77,22 @@ def insert_ok():
     return render_template('insert_ok.html', nbOk=nbOk)
 
 @app.route('/view')
+@app.route('/view/<int:year>/<int:month>')
 @app.route('/view/<date>')
-def show_ok(date=None):
+def show_ok(date=None, year=None, month=None):
     now = datetime.now()
-    month = now.strftime('%B')
+    month = month or now.month
+    year = year or now.year
+    title = calendar.month_name[month]
     cal = calendar.Calendar(firstweekday=0)   
     daysweek = calendar.day_name
-    days = cal.itermonthdates(now.year, now.month)
+    days = cal.itermonthdates(year, month)
     link = now.strftime('%Y-%m-')
-
     db = get_db()
-    nbOk = db.execute('select max(id) from ok').fetchone()[0]
-        
+            
     if date is None:
         return render_template(
-            'show_ok.html', days=days, month=month, daysweek=daysweek, link=link)
+            'show_ok.html', days=days, title=title, daysweek=daysweek, link=link, month=month, year=year)
     date = [int(i) for i in date.split('-')]
     table = datetime(date[0], date[1], date[2])
     frenchDate = table.strftime('%d %B %Y')
@@ -99,8 +100,8 @@ def show_ok(date=None):
     ok_list = db.execute('select moment from ok where moment >= (?) and moment <= (?) order by moment', [start, start+86400])
     ok_list = [datetime.fromtimestamp(ok['moment']).strftime('%H:%M') for ok in ok_list]
     return render_template(
-        'show_ok.html', days=days, month=month, daysweek=daysweek, ok_list=ok_list, 
-        frenchDate=frenchDate, link=link)
+        'show_ok.html', days=days, title=title, daysweek=daysweek, ok_list=ok_list, 
+        frenchDate=frenchDate, link=link, month=month, year=year)
 
 @app.route('/graphics', methods=['GET', 'POST'])
 def show_graphics():
