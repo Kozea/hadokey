@@ -1,26 +1,42 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<!--Mois précédent-->
+
+<nav>
 {% set previous_month =  month - 1 or 12 %}
 {% set previous_year = year-1 if previous_month == 12 else year %}
-    <a href="{{ url_for('show_ok', year=previous_year, month=previous_month) }}">Mois précédent</a>
+    <a href="{{ url_for('show_ok', year=previous_year, month=previous_month) }}
+    ">Mois précédent</a>
+    
+{% set next_month =  1 if month == 12 else month+1 %}
+{% set next_year = year+1 if next_month == 1 else year %}
+<a href="{{ url_for('show_ok', year=next_year, month=next_month)  }}">
+Mois suivant</a>
+</nav>
 
-<!--Calendrier -->
+<!--Calendar -->
 <table>
+    <caption><h2>{{ title | capitalize }}</h2></caption>
     <thead>
-        <th>{{ title | capitalize }}</th>
-    </thead>
-    <thead>
-        {% for dayweek in daysweek %}
-        <th>{{ dayweek | capitalize }}</th>
+        {% for day_week in days_week %}
+        <th>{{ day_week | capitalize }}</th>
         {% endfor %}   
     </thead>
 
 <tbody>
     <tr>
         {% for day in days %}
-            <td><a href="{{ url_for('show_ok', date='%s%s' % (link, day.day)) }}">{{ day.day }}</a></td>
+            {% if day.day == 1 %}
+                {% set link = False if link else True %}
+            {% endif %}     
+        
+                {% if link %}
+                   <td><a href="{{ url_for('show_ok', year=year, month=month, 
+                    day=day.day) }}">{{ day.day }}</a></td>    
+                {% else %}
+                    <td>{{ day.day }}</td>
+                {% endif %}
+                
             {% if not loop.index%7 and not loop.last %}
                 </tr> <tr>
             {% endif %}
@@ -29,13 +45,8 @@
 </tbody>
 </table>
 
-<!--Mois suivant-->
-{% set next_month =  1 if month == 12 else month+1 %}
-{% set next_year = year+1 if next_month == 1 else year %}
-<a href="{{ url_for('show_ok', year=next_year, month=next_month)  }}">Mois suivant</a>
-
-{% if frenchDate %}
-    <p>{{ frenchDate }}</p>
+{% if french_date %}
+    <h3>{{ french_date }}</h3>
 <ul>
 {% for ok in ok_list %}
     <li>{{ ok }}</li>
@@ -43,7 +54,5 @@
     <li><em>Annabelle n'a pas encore eu de hoquet. Ca va venir... </em></li>
 {% endfor %}
 </ul>
-
 {% endif %}
-
 {% endblock %}
