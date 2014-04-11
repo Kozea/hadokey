@@ -1,20 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<h2>Insérer un hoquet</h2>
+
     <form action="{{ url_for('insert_ok') }}" method=post>
-        <label for='date'>Date</label>
-        <input id='date' name='date' type='date'/>
-        <label for='time'>Heure</label>
-        <input id='time' name='time' type='time'/>
-        <input type='submit' value=HOQUET>
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date"/>
+        <label for="time">Heure</label>
+        <input id="time" name="time" type="time" />
+        <input type="submit" value="HOQUET">
     </form>
 
 {% if message %}
-    <p><b>{{ message }}</b></p>
+    <p>{{ message }}</p>
 {% endif %}
        
-{% if nbOk %}
-    <p>Annabelle a eu {{ nbOk }} fois le hoquet!</p>
+{% if nb_ok %}
+    <p>Annabelle a eu {{ nb_ok }} fois le hoquet!</p>
 {% else %}
     <p>Annabelle n'a pas encore eu de hoquet. Ca va venir...</p>
 {% endif %}

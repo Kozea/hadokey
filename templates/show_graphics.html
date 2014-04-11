@@ -2,21 +2,26 @@
 
 {% block body %}
 
+<h2>Graphiques</h2>
+
 <form action="{{ url_for('show_graphics') }}" method=post>
-    <label>Type</label>
-    <select id=type name=graphic><br>
+    <label for="type">Type</label>
+    <select id="type" name="graphic"><br>
         <option value="ligne">Ligne</option>
         <option value="histogramme">Histogramme</option>
-    </select><br>
-    <label>Mois</label>
-    <input type='date' id='month' name='month' size=1 /><br>
-    <label for='day'>Jours</label><input type='radio' name='display' id='day' value='day'/>
-    <label for='hour'>Heures</label><input type='radio' name='display' id='hour' value='hour'/><br>
-    <input type='submit' value='HOQUET' />
+    </select>
+    <label for="month">Mois</label>
+    <input type="date" id="month" name="month" size=1 />
+    <label for="day">Jours</label><input type="radio" name="display" id="day" 
+    value="day"/>
+    <label for="hour">Heures</label><input type="radio" name="display" 
+    id="hour" value="hour"/>
+    <input type="submit" value="HOQUET" />
 </form>
 
 {% if graph %}
-    <img src="{{ url_for('graph', graph=graph, type=type, year=year, month=month) }}" style="width:800px"/>
+    <object data="{{ url_for('graph', graph=graph, type=type, year=year, 
+    month=month) }}"></object>
 {% endif %}
 
 

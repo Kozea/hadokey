@@ -1,27 +1,36 @@
 <!doctype html>
 <html>
     <head>
-        <title>HOQUET</title>
+        <title>HADŌKEY</title>
 
-        <link rel=stylesheet type=text/css href="{{url_for('static', filename='style.css')}}">
-        <script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/       svg.jquery.js"></script>
-  <script type="text/javascript" src="http://kozea.github.com/pygal.js/javascripts/pygal-tooltips.js"></script>
+        <link rel=stylesheet type=text/css href="{{url_for('static', 
+        filename='style.css')}}">
+        <script type="text/javascript" 
+        src="http://kozea.github.com/pygal.js/javascripts/
+        svg.jquery.js"></script>
+        <script type="text/javascript" src="http://kozea.github.com/pygal.js/
+        javascripts/pygal-tooltips.js"></script>
         </head>
 
 <body>
-    <head>
-    <a href="{{ url_for('insert_ok') }}">Insérer</a>
-    <a href="{{ url_for('show_ok') }}">Voir les hoquets</a>
-    <a href="{{ url_for('show_graphics') }}">Graphiques</a>
-    </head>
-    <div>
-        <!--{% for message in get_flashed_messages() %}
-            <div class=flash>{{ message }}</div>
-        {% endfor %}-->
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('insert_ok') }}">Insérer</a></li>
+            <li><a href="{{ url_for('show_ok') }}">Voir les hoquets</a></li>
+            <li><a href="{{ url_for('show_graphics') }}">Graphiques</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <h1>Hadōkey</h1>
+        
+    {% for message in get_flashed_messages() %}
+        <div class=flash>{{ message }}</div>
+    {% endfor %}
 
     {% block body %}
 
     {% endblock %}
-    </div>
+    </main>
 </body>
 </html>
