@@ -184,12 +184,12 @@ def graph(graph, type, year, month):
             line_chart.title = (
                 'Nombre de hoquets par jour en %s' % 
                 calendar.month_name[month])
-            for day in range (int(first_day), int(timestamp), 86400):
+            for day in range (int(first_day), int(last_day), 86400):
                 requete = db.execute(
                     'select count(*) from ok where moment >= (?) '
                     'and moment <= (?)', [day, day+86400]).fetchone()[0]
                 hoquet.append(requete)
-            line_chart.x_labels = map(str, range(cal[0], cal[1]+1))
+            line_chart.x_labels = map(str, range(1, cal[1]+1))
             line_chart.add('Annabelle', hoquet)
         return line_chart.render_response()
             
