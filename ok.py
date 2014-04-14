@@ -2,6 +2,7 @@ import os
 import sqlite3
 import calendar
 import locale
+from util import is_in_weekend
 from datetime import datetime, timedelta
 from pygal import Line, Bar, DateY, Gauge
 from flask import (
@@ -43,13 +44,11 @@ def get_db():
         g.sqlite_db = connect_db()
     return g.sqlite_db
 
-
 @app.teardown_appcontext
 def close_db(error):
     """Close the database again at the end of the request."""
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
-
 
 @app.route('/', methods=['GET', 'POST'])
 def insert_ok():
@@ -159,12 +158,14 @@ def graph(graph, type, year, month):
     db = get_db()
     now = datetime.now()
     timestamp = now.timestamp()
-    first_day = datetime(year, month, 1).timestamp()
+    time_first_day = datetime(year, month, 1).timestamp()
+    first_day = datetime(year, month, 1)
     cal = calendar.monthrange(year, month)
-    last_day = datetime(year, month, cal[1], 23, 59, 59).timestamp()
+    time_last_day = datetime(year, month, cal[1], 23, 59, 59).timestamp()
+    last_day = datetime(year, month, cal[1])
     
     if graph in ['ligne', 'histogramme']:
-        line_chart = Line() if graph == 'ligne' else Bar()
+        line_chart = Line(interpolate='cubic') if graph == 'ligne' else Bar()
         if type == 'hour':
             line_chart.title = (
                 'Somme des hoquets par heure en %s' % 
@@ -173,7 +174,7 @@ def graph(graph, type, year, month):
                 'select CAST(strftime(\'%H\', datetime(moment, \'unixepoch\','
                 ' \'localtime\')) as integer) as hour, count(*) from ok '
                 'where moment between (?) and (?) group by hour', 
-                [first_day, last_day])
+                [time_first_day, time_last_day])
             hoquet = dict(requete)
             line_chart.x_labels = [
                str(hour) for hour, val in sorted(hoquet.items())]
@@ -181,15 +182,24 @@ def graph(graph, type, year, month):
                 val for hour, val in sorted(hoquet.items())])
         else:
             hoquet = []
+            x_labels = []
+            x_labels_major = []
             line_chart.title = (
                 'Nombre de hoquets par jour en %s' % 
                 calendar.month_name[month])
-            for day in range (int(first_day), int(last_day), 86400):
-                requete = db.execute(
-                    'select count(*) from ok where moment >= (?) '
-                    'and moment <= (?)', [day, day+86400]).fetchone()[0]
+            for i,day in enumerate(range (int(time_first_day), int(time_last_day), 86400)):                 
+                if is_in_weekend(day):
+                    requete = None
+                else:
+                    requete = db.execute(
+                        'select count(*) from ok where moment >= (?) '
+                        'and moment <= (?)', [day, day+86400]).fetchone()[0]
+                    x_labels_major.append(i+1)
+                    
+                x_labels.append(i+1)                   
                 hoquet.append(requete)
-            line_chart.x_labels = map(str, range(1, cal[1]+1))
+            line_chart.x_labels = map(str, x_labels)
+            line_chart.x_labels_major = list(map(str, x_labels_major))
             line_chart.add('Annabelle', hoquet)
         return line_chart.render_response()
             
