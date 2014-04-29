@@ -49,9 +49,48 @@ h1:before {
   width: 22px;
 }
 
+ul {
+  margin: 75px 0;
+  text-align: center;
+}
+
 li {
+  border-left: 2px solid #f8b30d;
   display: inline-block;
+  padding: 0 80px 20px;
   text-transform: uppercase;
+}
+
+li a {
+  color: #434343;
+  font-size: 30px;
+  text-decoration: none;
+}
+
+li a:hover {
+  color: #f8b30d;
+}
+
+li:nth-child(1):before {
+  content: url("img/add.png");
+  display: block;
+  margin-bottom: 25px;
+}
+
+li:nth-child(2):before {
+  content: url("img/eye.png");
+  display: block;
+  margin-bottom: 25px;
+}
+
+li:nth-child(3) {
+  border-right: 2px solid #f8b30d;
+}
+
+li:nth-child(3):before {
+  content: url("img/graph.png");
+  display: block;
+  margin-bottom: 32px;
 }
 
 h2 {
