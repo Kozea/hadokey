@@ -15,7 +15,7 @@
 }
 
 html {
-  background: #f5f5f5;
+  background: #add8e6;
   font-family: 'Oswald';
 }
 
@@ -96,12 +96,84 @@ li:nth-child(3):before {
 h2 {
   background: #1ea7c5;
   color: #fff;
+  font-size: 35px;
+  font-weight: normal;
   margin-bottom: 0;
+  padding: 25px 0;
   text-align: center;
+  text-transform: uppercase;
+}
+
+h2:before {
+  content: '';
+  background: #fff;
+  height: 2px;
+  margin: 10px;
+  width: 8px;
+  display: inline-block;
+}
+
+h2:after {
+  content: '';
+  background: #fff;
+  height: 2px;
+  margin: 10px;
+  width: 8px;
+  display: inline-block;
 }
 
 form {
   background: #1ea7c5;
+  padding-bottom: 25px;
   text-align: center;
+}
+
+form label {
+  font-size: 0;
+}
+
+form input {
+  color: #bababa;
+  border: none;
+  display: block;
+  height: 50px;
+  font-family: 'Oswald';
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  width: 250px;
+}
+
+form input:before {
+  background: #f8b30d;
+  display: inline;
+  height: 50px;
+  padding-top: 5px;
+  width: 50px;
+}
+
+form input[id="date"]:before {
+  content: url("img/date.png");
+}
+
+form input[id="time"]:before {
+  content: url("img/time.png");
+}
+
+form input[type="submit"] {
+  background: #0a768d;
+  border-color: #0a768d;
+  color: #fff;
+  display: block;
+  font-size: 23px;
+  height: 50px;
+  margin: 20px auto 0;
+  width: 250px;
+}
+
+form input[type="submit"]:hover {
+  background: #108ca7;
+  border-color: #108ca7;
 }
 
