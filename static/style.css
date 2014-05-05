@@ -22,7 +22,7 @@ html {
 body {
   background: #fff;
   margin: 0 auto;
-  width: 85%;
+  width: 70%;
 }
 
 h1 {
@@ -71,26 +71,27 @@ li a:hover {
   color: #f8b30d;
 }
 
-li:nth-child(1):before {
+a.add:before {
   content: url("img/add.png");
   display: block;
   margin-bottom: 25px;
 }
 
-li:nth-child(2):before {
+a.see:before {
   content: url("img/eye.png");
   display: block;
   margin-bottom: 25px;
 }
 
-li:nth-child(3) {
-  border-right: 2px solid #f8b30d;
-}
 
-li:nth-child(3):before {
+a.graph:before {
   content: url("img/graph.png");
   display: block;
   margin-bottom: 32px;
+}
+
+li:nth-child(3) {
+  border-right: 2px solid #f8b30d;
 }
 
 h2 {
@@ -175,5 +176,49 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background: #108ca7;
   border-color: #108ca7;
+}
+
+p {
+  color: #282828;
+  font-size: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+table {
+  border: 2px solid #f8b30d;
+  margin: -20px auto 0;
+}
+
+table h2 {
+  background: none;
+  color: #282828;
+  font-weight: bold;
+}
+
+table h2:before {
+  content: none;
+}
+
+table h2:after {
+  content: none;
+}
+
+th {
+  color: #1ea7c5;
+  padding: 0 20px;
+  text-transform: uppercase;
+}
+
+td {
+  color: #999;
+  font-size: 19px;
+  padding: 10px 30px;
+}
+
+td a {
+  color: #434343;
+  text-decoration: none;
 }
 
