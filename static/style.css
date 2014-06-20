@@ -49,50 +49,68 @@ h1:before {
   width: 22px;
 }
 
-ul {
+#main ul {
   margin: 75px 0;
   text-align: center;
 }
 
-li {
+#main li {
   border-left: 2px solid #f8b30d;
   display: inline-block;
   padding: 0 80px 20px;
   text-transform: uppercase;
 }
 
-li a {
+#main li a {
   color: #434343;
   font-size: 30px;
   text-decoration: none;
 }
 
-li a:hover {
+#main li a:hover {
   color: #f8b30d;
 }
 
-a.add:before {
+#main li:last-child {
+  border-right: 2px solid #f8b30d;
+}
+
+li.add:before {
   content: url("img/add.png");
   display: block;
   margin-bottom: 25px;
 }
 
-a.see:before {
+li.see:before {
   content: url("img/eye.png");
   display: block;
   margin-bottom: 25px;
 }
 
-
-a.graph:before {
+li.graph:before {
   content: url("img/graph.png");
   display: block;
   margin-bottom: 32px;
 }
 
-li:nth-child(3) {
-  border-right: 2px solid #f8b30d;
+#months {
+  text-align: center
 }
+
+#months li {
+  display: inline-block;
+}
+
+
+li.prev a {
+  content: url("img/left.png");
+}
+
+li.next a {
+  content: url("img/right.png");
+}
+
+
 
 h2 {
   background: #1ea7c5;
@@ -123,17 +141,17 @@ h2:after {
   display: inline-block;
 }
 
-form {
+#insert {
   background: #1ea7c5;
   padding-bottom: 25px;
   text-align: center;
 }
 
-form label {
+#insert label {
   font-size: 0;
 }
 
-form input {
+#insert input {
   color: #bababa;
   border: none;
   display: block;
@@ -146,7 +164,7 @@ form input {
   width: 250px;
 }
 
-form input:before {
+#insert input:before {
   background: #f8b30d;
   display: inline;
   height: 50px;
@@ -154,15 +172,15 @@ form input:before {
   width: 50px;
 }
 
-form input[id="date"]:before {
+#insert input[id="date"]:before {
   content: url("img/date.png");
 }
 
-form input[id="time"]:before {
+#insert input[id="time"]:before {
   content: url("img/time.png");
 }
 
-form input[type="submit"] {
+#insert input[type="submit"] {
   background: #0a768d;
   border-color: #0a768d;
   color: #fff;
@@ -173,9 +191,66 @@ form input[type="submit"] {
   width: 250px;
 }
 
-form input[type="submit"]:hover {
+#insert input[type="submit"]:hover {
   background: #108ca7;
   border-color: #108ca7;
+}
+
+#graphic {
+  background: #1ea7c5;
+  padding-bottom: 25px;
+  text-align: center;
+}
+
+
+#graphic input {
+  color: #bababa;
+  border: none;
+  display: block;
+  height: 50px;
+  font-family: 'Oswald';
+  font-size: 18px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  width: 250px;
+}
+
+#graphic input[id="day"] {
+  display: inline-block;
+  vertical-align: middle;
+  width: 25px;
+}
+
+#graphic input[id="hour"] {
+  display: inline-block;
+  vertical-align: middle;
+  width: 25px;
+}
+
+#graphic label[for="month"] {
+  font-size: 0;
+}
+
+#graphic input[type="submit"] {
+  background: #0a768d;
+  border-color: #0a768d;
+  color: #fff;
+  display: block;
+  font-size: 23px;
+  height: 50px;
+  margin: 20px auto 0;
+  width: 250px;
+}
+
+#graphic input[type="submit"]:hover {
+  background: #108ca7;
+  border-color: #108ca7;
+}
+
+#graphic label {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 p {
@@ -187,8 +262,9 @@ p {
 }
 
 table {
-  border: 2px solid #f8b30d;
-  margin: -20px auto 0;
+  border: 1px solid #f8b30d;
+  margin: -45px auto 0;
+  width: 250px;
 }
 
 table h2 {

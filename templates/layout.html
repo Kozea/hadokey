@@ -17,11 +17,11 @@
     <main>
         <h1>Hadōkey</h1>
 
-    <nav>
+    <nav id="main">
         <ul>
-            <li><a href="{{ url_for('insert_ok') }}" class="add">Insérer</a></li>
-            <li><a href="{{ url_for('show_ok') }}" class="see">Voir les hoquets</a></li>
-            <li><a href="{{ url_for('show_graphics') }}" class="graph">Graphiques</a></li>
+            <li class="add"><a href="{{ url_for('insert_ok') }}">Insérer</a></li>
+            <li class="see"><a href="{{ url_for('show_ok') }}">Voir les hoquets</a></li>
+            <li class="graph"><a href="{{ url_for('show_graphics') }}">Graphiques</a></li>
         </ul>
     </nav>
 

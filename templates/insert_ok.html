@@ -3,7 +3,7 @@
 {% block body %}
 <h2>Insérer un hoquet</h2>
 
-    <form action="{{ url_for('insert_ok') }}" method=post>
+    <form id="insert" action="{{ url_for('insert_ok') }}" method=post>
         <label for="date">Date</label>
         <input id="date" name="date" type="date"/>
         <label for="time">Heure</label>
