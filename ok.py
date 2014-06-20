@@ -187,7 +187,8 @@ def graph(graph, type, year, month):
             line_chart.title = (
                 'Nombre de hoquets par jour en %s' % 
                 calendar.month_name[month])
-            for i,day in enumerate(range (int(time_first_day), int(time_last_day), 86400)):                 
+            for i,day in enumerate(range (int(time_first_day),
+            int(time_last_day), 86400)):                 
                 if is_in_weekend(day):
                     requete = None
                 else:
