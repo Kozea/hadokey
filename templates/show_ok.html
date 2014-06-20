@@ -2,17 +2,7 @@
 
 {% block body %}
 
-<nav>
-{% set previous_month =  month - 1 or 12 %}
-{% set previous_year = year-1 if previous_month == 12 else year %}
-    <a href="{{ url_for('show_ok', year=previous_year, month=previous_month) }}
-    ">Mois précédent</a>
-    
-{% set next_month =  1 if month == 12 else month+1 %}
-{% set next_year = year+1 if next_month == 1 else year %}
-<a href="{{ url_for('show_ok', year=next_year, month=next_month)  }}">
-Mois suivant</a>
-</nav>
+
 
 <!--Calendar -->
 <table>
@@ -44,6 +34,25 @@ Mois suivant</a>
    </tr>
 </tbody>
 </table>
+
+<nav id="months">
+    {% set previous_month =  month - 1 or 12 %}
+    {% set previous_year = year-1 if previous_month == 12 else year %}
+
+    <ul>
+      <li class="prev">
+        <a href="{{ url_for('show_ok', year=previous_year, month=previous_month) }}"> Mois précédent
+        </a>
+      </li>
+
+      {% set next_month =  1 if month == 12 else month+1 %}
+      {% set next_year = year+1 if next_month == 1 else year %}
+      <li class="next">
+        <a href="{{ url_for('show_ok', year=next_year, month=next_month)  }}"> Mois suivant
+        </a>
+      </li>
+    </ul>
+</nav>
 
 {% if french_date %}
     <h3>{{ french_date }}</h3>

@@ -13,17 +13,18 @@
         </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('insert_ok') }}">Insérer</a></li>
-            <li><a href="{{ url_for('show_ok') }}">Voir les hoquets</a></li>
-            <li><a href="{{ url_for('show_graphics') }}">Graphiques</a></li>
-        </ul>
-    </nav>
-    
+
     <main>
         <h1>Hadōkey</h1>
-        
+
+    <nav id="main">
+        <ul>
+            <li class="add"><a href="{{ url_for('insert_ok') }}">Insérer</a></li>
+            <li class="see"><a href="{{ url_for('show_ok') }}">Voir les hoquets</a></li>
+            <li class="graph"><a href="{{ url_for('show_graphics') }}">Graphiques</a></li>
+        </ul>
+    </nav>
+
     {% for message in get_flashed_messages() %}
         <div class=flash>{{ message }}</div>
     {% endfor %}
