@@ -58,7 +58,7 @@ h1:before {
   border-left: 2px solid #f8b30d;
   border-right: 2px solid #f8b30d;
   display: inline-block;
-  margin: 0 -2px
+  margin: 0 -2px;
   padding: 0 80px 20px;
   text-transform: uppercase;
 }
