@@ -56,7 +56,9 @@ h1:before {
 
 #main li {
   border-left: 2px solid #f8b30d;
+  border-right: 2px solid #f8b30d;
   display: inline-block;
+  margin: 0 -2px
   padding: 0 80px 20px;
   text-transform: uppercase;
 }
@@ -69,10 +71,6 @@ h1:before {
 
 #main li a:hover {
   color: #f8b30d;
-}
-
-#main li:last-child {
-  border-right: 2px solid #f8b30d;
 }
 
 li.add:before {
