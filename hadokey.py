@@ -2,7 +2,6 @@ import os
 import sqlite3
 import calendar
 import locale
-from util import is_in_weekend
 from datetime import datetime, timedelta
 from pygal import Line, Bar, DateY, Gauge
 from flask import (
@@ -43,6 +42,20 @@ def get_db():
     if not hasattr(g, 'sqlite_db'):
         g.sqlite_db = connect_db()
     return g.sqlite_db
+
+
+def is_in_weekend(day):
+    """Return True if day is in week-end.
+
+    >>> is_in_weekend(1397426400.0)
+    False
+
+    >>> is_in_weekend(1397253600.0)
+    True
+     """
+    date = datetime.fromtimestamp(day)
+    return calendar.weekday(date.year, date.month, date.day) in (5, 6)
+
 
 @app.teardown_appcontext
 def close_db(error):
